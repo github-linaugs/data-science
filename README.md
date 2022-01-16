@@ -12,6 +12,6 @@ For general information on the certificate course, please visit the [coursera we
 
 
 
-Your are welcome to use any of my parts/contributions stored in this repo, but please note that material or information herein (e.g. product and brand names, artworks in material provided by Coursera and/or IBM, etc.) might be under copyright and/or restricted use.
+Your are welcome to use any of my parts/contributions stored in this repo, but please note that most material (e.g. product and brand names, artworks in material provided by Coursera and/or IBM, images and photos used in slide deck, etc.) is under copyright and/or restricted use.
 
-2022-01-15 OL
+2022-01-16 OL
