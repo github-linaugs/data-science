@@ -5,6 +5,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import plotly.express as px
+import plotly.graph_objects as go
 
 # Read the airline data into pandas dataframe
 spacex_df = pd.read_csv("spacex_dash_launchdata.csv")
@@ -75,7 +76,7 @@ def get_pie_chart(entered_site):
     else:
         filtered_df=spacex_df[spacex_df['Launch Site']== entered_site]
         filtered_df=filtered_df.groupby(['Launch Site','class']).size().reset_index(name='class count')
-        fig=px.pie(filtered_df,values='class count',names='class',title=f"Total Success Launches for site {entered_site}")
+        fig=px.pie(filtered_df,values='class count',names='class',color='class',color_discrete_sequence=["red", "green"],title=f"Total Success Launches for site {entered_site}")
         return fig
 
 
@@ -88,11 +89,21 @@ def scatter(entered_site,payload):
     filtered_df = spacex_df[spacex_df['Payload Mass (kg)'].between(payload[0],payload[1])]
 
     if entered_site=='ALL':
-        fig=px.scatter(filtered_df,x='Payload Mass (kg)',y='class',color='Booster Version Category',title='Success count on Payload mass for all sites')
+        fig=px.scatter(filtered_df,x='Payload Mass (kg)',y='class',color='Booster Version Category', title='Success count on Payload mass for all sites')
         return fig
 
     else:
-        fig=px.scatter(filtered_df[filtered_df['Launch Site']==entered_site],x='Payload Mass (kg)',y='class',color='Booster Version Category',title=f"Success count on Payload mass for site {entered_site}")
+        fig=px.scatter(filtered_df[filtered_df['Launch Site']==entered_site],
+            x='Payload Mass (kg)',
+            y='class',
+            color='Booster Version Category',
+            title=f"Success count on Payload mass for site {entered_site}"
+            )
+        fig.update_traces(marker_size=15,opacity=0.85)
+        fig.update_layout(yaxis_range=[-0.2,1.2])
+        fig.update_layout(yaxis = dict(tickmode = 'array',tickvals = [0,1],ticktext = ['Fail - 0', 'Success - 1']
+    )
+)
         return fig
 
 
